@@ -28,6 +28,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec", "~> 2.11"
   s.add_development_dependency "vcr", "~> 2.2"
   s.add_development_dependency "fakeweb", "~> 1.3"
-  s.add_runtime_dependency "event_machine", "~> 0.3"
   s.add_runtime_dependency "heroku-api", "~> 0.3"
 end
