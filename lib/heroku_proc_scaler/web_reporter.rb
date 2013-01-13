@@ -27,6 +27,7 @@ module HerokuProcScaler
     end
 
     def update_stats_record depth
+      puts "updating queue depth to #{depth}"
       @connection.insert_sql "INSERT INTO procscaler_web_stats (dyno_guid, last_queue_depth, created_at, updated_at) VALUES ('#{HerokuProcScaler.configuration.dyno_guid}', #{depth.to_i}, TIMESTAMP '#{Time.now.to_s(:db)}', TIMESTAMP '#{Time.now.to_s(:db)}')", nil, 'dyno_guid'
     end
 
