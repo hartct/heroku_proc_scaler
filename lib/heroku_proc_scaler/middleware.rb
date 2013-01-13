@@ -16,13 +16,15 @@ module HerokuProcScaler
     end
 
     def call(env)
-      begin
-        EventMachine.defer { scale(env) }
-      rescue Exception => e
-        puts e.message
-        puts e.backtrace.inspect
+      EM.run do
+        begin
+          EM.defer { scale(env) }
+        rescue Exception => e
+          puts e.message
+          puts e.backtrace.inspect
+        end
+        app.call(env)
       end
-      app.call(env)
     end
 
     def scale(env)
