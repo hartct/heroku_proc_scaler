@@ -33,8 +33,7 @@ module HerokuProcScaler
     end 
 
     def queue_depth(env)
-      puts "env = #{env}"
-      env["HTTP_X_QUEUE_DEPTH"].nil? ? nil : env["HTTP_X_QUEUE_DEPTH"].to_i
+      env["HTTP_X_HEROKU_QUEUE_DEPTH"].nil? ? nil : env["HTTP_X_HEROKU_QUEUE_DEPTH"].to_i
     end 
 
   end
