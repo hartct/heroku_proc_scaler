@@ -2,6 +2,7 @@ require 'active_record'
 require 'heroku-api'
 require 'rack'
 require 'heroku_proc_scaler'
+require 'eventmachine'
 
 module HerokuProcScaler
   
