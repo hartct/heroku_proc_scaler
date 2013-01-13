@@ -17,7 +17,7 @@ module HerokuProcScaler
     end
   
     def self.should_report? depth
-      time_to_report = (depth <= HerokuProcScaler.configuration.web_low_load_queue_max ? web_report_frequency_low_load : web_report_frequency_high_load)
+      time_to_report = (depth <= HerokuProcScaler.configuration.web_low_load_queue_max ? HerokuProcScaler.configuration.web_report_frequency_low_load : HerokuProcScaler.configuration.web_report_frequency_high_load)
       Time.now.to_i - @@last_report_time >= time_to_report
     end
 
