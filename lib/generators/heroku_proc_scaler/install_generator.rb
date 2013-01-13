@@ -30,18 +30,18 @@ module HerokuProcScaler
       f = File.open File.join(File.dirname(__FILE__), 'templates', 'migration.rb')
       migration = f.read; f.close
       migration.gsub!(/SCHEMA_AUTO_INSERTED_HERE/, schema)
-      
-      tmp = File.open "tmp/~migration_ready.rb", "w"
+      tmp_dir = Dir.tmpdir
+      tmp = File.open "#{tmp_dir}/~migration_ready.rb", "w"
       tmp.write migration
       tmp.close
 
-      migration_template  '../../../tmp/~migration_ready.rb',
-                          'db/migrate/create_heroku_proc_scaler_tables.rb'
-      remove_file 'tmp/~migration_ready.rb'
+      migration_template  "#{tmp_dir}/~migration_ready.rb",
+                          "db/migrate/create_heroku_proc_scaler_tables.rb"
+      remove_file "#{tmp_dir}/~migration_ready.rb"
     end
 
     def copy_initializer_file
-      copy_file 'initializer.rb', 'config/initializers/auditor.rb'
+      copy_file 'initializer.rb', 'config/initializers/heroku_proc_scaler.rb'
     end
 
 

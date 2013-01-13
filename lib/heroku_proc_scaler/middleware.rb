@@ -7,10 +7,11 @@ module HerokuProcScaler
   
   class Middleware
 
-    attr_reader :app
+    attr_reader :app, :web_reporter
 
     def initialize(app)
       @app = app
+      @web_reporter = HerokuProcScaler::WebReporter.new
     end
 
     def call(env)
@@ -24,14 +25,12 @@ module HerokuProcScaler
     end
 
     def scale(env)
-      if queue_depth(env).nil?
-        puts "no queue depth header found"
-      else
-        puts "Heroku Queue Depth = #{queue_depth}" 
+      if depth = queue_depth(env)
+        @web_reporter.current_queue_depth depth
       end
     end 
 
-    def queue_depth(env )
+    def queue_depth(env)
       env["HTTP_X_QUEUE_DEPTH"].nil? ? nil : env["HTTP_X_QUEUE_DEPTH"].to_i
     end 
 
