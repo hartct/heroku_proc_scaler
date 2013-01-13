@@ -26,7 +26,9 @@ module HerokuProcScaler
     end
 
     def scale(env)
+      puts "checking queue depth..."
       if depth = queue_depth(env)
+        puts "   reporting."
         @web_reporter.current_queue_depth depth
       end
     end 
